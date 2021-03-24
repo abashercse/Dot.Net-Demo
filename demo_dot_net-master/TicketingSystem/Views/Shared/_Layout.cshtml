@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Activation Management System</title>
+    <link href="~/White/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <link href="~/js/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker({ dateFormat: 'dd-M-y' });
+        });
+        $(function () {
+            $("#datepicker1").datepicker({ dateFormat: 'dd-M-y' });
+        });
+        $(function () {
+            $("#datepicker2").datepicker({ dateFormat: 'dd-M-y' });
+        });
+        $(function () {
+            $("#datepicker3").datepicker({ dateFormat: 'dd-M-y' });
+        });
+    </script>
+</head>
+<body>
+        <div id="main">
+            <!-- Begin Header -->
+            <div id="header">
+                <table width="100%" style="border-bottom: #0000ff thin solid">
+                    <tr valign="middle">
+                        <td width="20%" align="left" valign="middle">
+                            <img src="~/images/gp_big.jpg" width="160" height="45" />
+                        </td>
+                        <td width="80%" align="center" valign="middle">
+                            <span style="font-size: 25pt"><strong>Activation Ticketing System</strong></span>
+                        </td>
+                    </tr>
+                </table>
+                <!--
+                <table width="100%">
+                    <tr valign="top">
+                        <td style="width: 100%">
+                            Logout
+                        </td>
+                    </tr>
+                </table>
+                -->
+            </div>
+            <!-- End Header -->
+            <!-- Begin Content -->
+            <div id="content">
+                <table width="100%">
+                    <tr valign="top">
+                        <td style="width: 100%">
+                            @RenderBody()
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- End Content -->
+            <!-- Begin Footer -->
+            <footer>
+                Powered by GPIT
+            </footer>
+            <!-- End Footer -->
+        </div>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

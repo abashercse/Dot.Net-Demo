@@ -1,0 +1,119 @@
+﻿@model TicketingSystem.Models.ChannelManagementModel
+<form method="post">
+    <table width="100%">
+        <tr>
+            <td align="right" colspan="4">
+                <span id="_lblWelcome">@ViewData["lblWelcome"]</span>
+            </td>
+        </tr>
+        
+        @if (@ViewData["lblMessage"] != null)
+        {
+            <tr>
+                <td align="center" colspan="4">
+                    <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                </td>
+            </tr>
+                
+        }
+    </table>
+    <table width="100%">
+        <tr>
+            <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">Channel Management</span>
+            </td>
+       
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+
+                <input type="submit" asp-controller="MyRequest" asp-action="MyRequest" value="My Requests" class="menuButton" />
+                <input type="submit" asp-controller="ChannelManagement" asp-action="Btn_Dashboard" value="Activation Dashboard" class="menuButton" />
+                <input type="submit" asp-controller="ChannelManagement" asp-action="Btn_UserMgt" value="User Management" class="menuButton" />
+
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Search Criteria</strong></font></legend>
+                    <table width="80%">
+                        <tr>
+                            <td colspan="4" style="height: 5px" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                Channel Type:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                <span style="width:260px" id="ddlUserList">
+                                    @Html.DropDownListFor(ddl => ddl.ddlChannelType, Model.channelType, "Please select ...",
+                                        new
+                                        {
+                                            onchange = "document.location.href = '/ChannelManagement/ChanneltypeChange?Channeltype=' + " +
+                                        "this.options[this.selectedIndex].value;", style= "width:260px;"
+                                        })
+                                </span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                Channel Name:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+
+                                @Html.DropDownListFor(ddl => ddl.ddlChannelName, Model.channelName, "Please select ...", new { style = "width:260px;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                &nbsp;
+                            </td>
+                            <td style="width: 80%" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                New Channel Name:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                
+                                <input type="text" id="txtNewChannelName" name="txtNewChannelName" style="width:120px;" value="@Model.txtChannelName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right" valign="middle" style="height: 35px">
+                                <input type="submit" asp-controller="ChannelManagement" asp-action="btnReset_Click" name="btnReset" value="Reset" id="btnReset" style="width:100px;" />
+                                <input type="submit" asp-controller="ChannelManagement" asp-action="btnCreate_Click" name="btnCreate" value="Create" id="btnReset" style="width:100px;" />
+                                <input type="submit" asp-controller="ChannelManagement" asp-action="btnUpdate_Click" name="btnUpdate" value="Update" id="btnUpdate" style="width:100px;" />
+                                <input type="submit" asp-controller="ChannelManagement" asp-action="btnDelete_Click" name="btnDelete" value="Delete" id="btnDelete" style="width:100px;" />
+                            </td>
+
+                        </tr>
+                    </table>
+                </fieldset>
+                <br />
+
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+</form>

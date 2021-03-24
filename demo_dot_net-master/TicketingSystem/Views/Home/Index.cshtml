@@ -1,0 +1,104 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<form method="post">
+    <table width="100%">
+       
+        @if (@ViewData["lblMessage"] != null)
+        {
+            <tr>
+                <td align="center" colspan="3">
+                    <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                </td>
+            </tr>
+        }
+        <tr id="rowDhLogin" runat="server" visible="false">
+            <td style="height: 300px; width: 320px;">
+                &nbsp;
+            </td>
+            <td style="height: 300px" width="400px" background="~/images/login_bak.png"
+                bgcolor="Black">
+                <table width="100%">
+                    <tr>
+                        <td align="center" colspan="2">
+                            <img src="~/images/gp.png" style="width: 70px; height: 70px" />
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 167px">
+                            <label for="" style="color:white">User Name:&nbsp;</label>
+                        </td>
+                        <td>
+                            <input type="text" name="txtUserName" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 167px">
+                            <label for="" style="color:white">Password:&nbsp;</label>
+                        </td>
+                        <td>
+                            <input type="password" name="txtPassword" value="" />
+                        </td>
+                    </tr>
+                    <tr id="divNewPass" runat="server">
+                        <td align="right" style="width: 167px">
+                            <label for=""  style="display: none">New Password:&nbsp;</label>
+                        </td>
+                        <td>
+                            <input type="hidden"  name="txtNewPassword" value="" />
+                        </td>
+                    </tr>
+                    <tr id="divNewPassConfirm" runat="server">
+                        <td align="right" style="width: 167px">
+                            <label for="" style="display: none">Confirm New Password:&nbsp;</label>
+                        </td>
+                        <td>
+                            <input type="hidden" name="txtConfirmNewPass" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 167px">
+                            &nbsp;
+                        </td>
+                        <td align="left">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 167px">
+                            &nbsp;
+                        </td>
+                        <td align="left">
+                            <input type="submit" asp-controller="Home" asp-action="LogIn" name="logIn" id="btnLogin" value="Log In">
+                            <input type="submit" asp-controller="Home" asp-action="Reset" name="reset" id="btnReset" value="Reset">
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 167px">
+                            &nbsp;
+                        </td>
+                        <td align="left">
+                            <label for=""></label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="height: 300px">
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+</form>
+<br />
+<br />
+<br />
+<br />

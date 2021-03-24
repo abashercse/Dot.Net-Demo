@@ -1,0 +1,132 @@
+@model MyRequestViewModel
+<form method="post">
+    <table width="100%">
+        <tr>
+            <td align="right" colspan="4">
+                <span id="ctl00_ContentPlaceHolder1_lblWelcome">@ViewData["lblWelcome"]</span>
+            </td>
+        </tr>
+        @if (@ViewData["lblMessage"] != null)
+        {
+            <tr>
+                <td align="center" colspan="4">
+                    <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                </td>
+            </tr>
+        }
+    </table>
+    <table width="100%">
+        <tr>
+            <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">My Requests</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <input type="submit" asp-controller="MyRequest" asp-action="Btn_ActRequest" value="New Request" class="menuButton" />
+                <input type="submit" asp-controller="SearchMyTicket" asp-action="MyTicket" value="Search Ticket" class="menuButton" />
+                <input type="submit" asp-controller="MyRequest" asp-action="Btn_ActivationDashboard" value="Activation Dashboard" class="menuButton" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <a id="lkbReqTotal" style="font-weight:bold; font-size:small" href="/MyRequest/MyRequest?status=ALL">@Model.linkCaptions.reqTotalLinkCaption</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <a id="lkbReqOpen" style="font-weight:bold; font-size:small" href="/MyRequest/MyRequest?status=OPEN">@Model.linkCaptions.reqOpenLinkCaption</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <a id="lkbReqClose" style="font-weight:bold; font-size:small" href="/MyRequest/MyRequest?status=CLOSE">@Model.linkCaptions.reqCloseLinkCaption</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <a id="lkbReqAssigned" style="font-weight:bold; font-size:small" href="/MyRequest/MyRequest?status=ASSIGNED">@Model.linkCaptions.reqAssignLinkCaption</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <a id="lkbReqHold" style="font-weight:bold; font-size:small" href="/MyRequest/MyRequest?status=HOLD">@Model.linkCaptions.reqHoldLinkCaption</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <a id="lkbReqRejected" style="font-weight:bold; font-size:small" href="/MyRequest/MyRequest?status=REJECTED">@Model.linkCaptions.reqRejectLinkCaption</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">My Ticket Status</strong></font></legend>
+                    <br />
+                    <div>
+                        @if (Model.listDetails != null && Model.listDetails.Any())
+                        {
+                            <table cellspacing="0" rules="all" border="1" id="gvActivationRequest" style="width:90%;border-collapse:collapse;">
+                                <tr style="height:20px; font-weight:bold; background-color:#CCE4F5">
+                                    <td>Request Date</td>
+                                    <td>Ticket #</td>
+                                    <td>Service Name</td>
+                                    <td>Status</td>
+                                    <td>Responsible Team</td>
+                                    <td>Assigned To</td>
+                                    <td>Comments</td>
+                                </tr>
+                                @foreach (RequestDetailsMaster row in Model.listDetails)
+                                {
+                                    <tr style="height:18px; color:black">
+                                        <td>
+                                            <span id="lblRequestDate" style="display:inline-block;width:100px">@row.requestDate</span>
+                                        </td>
+                                        <td>
+                                            <span id="hplTicketNo" style="display:inline-block;width:100px"><a id="" href="/ActivationExecution/Execution?reqticketno=@row.ticketId" style="display:inline-block;width:110px;" target="_blank">@row.ticketId</a></span>
+                                        </td>
+                                        <td>
+                                            <span id="lblServiceName" style="display:inline-block;width:100px">@row.serviceName</span>
+                                        </td>
+                                        <td>
+                                            <span id="lblStatus" style="display:inline-block;width:100px">@row.status</span>
+                                        </td>
+                                        <td>
+                                            <span id="lblResponsibleTeam" style="display:inline-block;width:100px">@row.responsibleTeam</span>
+                                        </td>
+                                        <td>
+                                            <span id="lblAssignedTo" style="display:inline-block;width:100px">@row.ticketAssignedUser</span>
+                                        </td>
+                                        <td>
+                                            <span id="lblComments" style="display:inline-block;width:100px">@row.comments</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                    </div>
+                    <br />
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+            </td>
+        </tr>
+    </table>
+</form>

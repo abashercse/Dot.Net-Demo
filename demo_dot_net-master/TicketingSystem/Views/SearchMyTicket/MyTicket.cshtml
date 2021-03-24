@@ -1,0 +1,141 @@
+@model TicketingSystem.Models.SearchMyTicketModel
+<form method="post">
+        <table width="100%">
+            <tr>
+                <td align="right" colspan="4">
+                    <span id="_lblWelcome">@ViewData["lblWelcome"]</span>
+                </td>
+            </tr>
+            @if (@ViewData["lblMessage"] != null)
+            {
+                <tr>
+                    <td align="center" colspan="4">
+                        <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                    </td>
+                </tr>
+            }
+        </table>
+        <table width="100%">
+            <tr>
+                <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                    <span id="_lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">Search My Ticket</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    <input type="submit" asp-controller="SearchMyTicket" asp-action="Btn_MyRequest" value="My Requests" class="menuButton" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    <fieldset>
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Search Criteria</strong></font></legend>
+                        <table width="70%">
+                            <tr>
+                                <td colspan="4" style="height: 5px" class="leftCell">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; height: 20px;" class="leftCell">
+                                    Request Date From:
+                                </td>
+                                <td style="width: 30%; height: 20px;" class="rightCell">
+                                    <input type="text" id="datepicker" name="txtRequestDateFrom" value="@Model.txtRequestDateFrom">
+                                </td>
+                                <td style="width: 20%; height: 20px;" class="leftCell">
+                                    Request Date To:
+                                </td>
+                                <td style="width: 30%; height: 20px;" class="rightCell">
+                                    <input type="text" id="datepicker1" name="txtRequestDateTo" value="@Model.txtRequestDateTo">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%" class="leftCell">
+                                    Ticket Status:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    @Html.DropDownListFor(m => m.ddlTicketStatus, Model.ticketStatus, "Please select ...", new { style = "width: 150px;" })                                    
+                                </td>
+                                <td style="width: 20%" class="leftCell">
+                                    Ticket #:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    <input type="text" id="txtTicketNo" name="txtTicketNo" value="@Model.txtTicketNo" style="width:120px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" align="center" valign="middle" style="height: 35px">
+                                    <input type="submit" asp-controller="SearchMyTicket" asp-action="MyTicketSearch" value="Search" style="width:100px;"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <br />
+                    <fieldset>
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Search Result</strong></font></legend>
+                        <br />
+                        <div>
+                            @if (Model.reqMstList != null && Model.reqMstList.Any())
+                            {
+                                <table cellspacing="0" rules="all" border="1" id="gvActivationRequest" style="width:90%;border-collapse:collapse;">
+                                    <tr style="background-color:#CCE4F5;font-weight:bold;height:20px;">
+                                        <th scope="col">Request Date</th>
+                                        <th scope="col">Ticket #</th>
+                                        <th scope="col">Service Name</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Responsible Team</th>
+                                        <th scope="col">Assigned To</th>
+                                        <th scope="col">Comments</th>
+                                    </tr>
+                                    @foreach (ActivationReqMasterModel activationReq in Model.reqMstList)
+                                    {
+
+                                        <tr style="color:Black;height:18px;">
+                                            <td>
+                                                <span id="" style="display:inline-block;width:75px;">@activationReq.ticketCreateDate</span>
+                                            </td>
+                                            <td style="white-space:nowrap;">
+                                                <a id="" href="/ActivationExecution/Execution?reqticketno=@activationReq.ticketNo" style="display:inline-block;width:110px;" target="_blank">@activationReq.ticketNo</a>
+                                            </td>
+                                            <td>
+                                                <span id="" style="display:inline-block;width:120px;">@activationReq.serviceName</span>
+                                            </td>
+                                            <td>
+                                                <span id="" style="display:inline-block;width:120px;">@activationReq.ticketStatus</span>
+                                            </td>
+                                            <td style="white-space:nowrap;">
+                                                <span id="" style="display:inline-block;width:50px;">@activationReq.activationTeam</span>
+                                            </td>
+                                            <td style="white-space:nowrap;">
+                                                <span id="" style="display:inline-block;width:80px;">@activationReq.ticketAssignUser</span>
+                                            </td>
+                                            <td>
+                                                <span id="" style="display:inline-block;width:100px;">@activationReq.comments</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            }
+                            </div>
+                        <br />
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+</form>

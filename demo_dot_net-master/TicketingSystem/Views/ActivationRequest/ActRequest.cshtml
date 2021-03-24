@@ -1,0 +1,491 @@
+@model ActivationRequestViewModel
+<form method="post">
+    <table width="100%">
+        <tr>
+            <td align="right" colspan="4">
+                <span id="lblWelcome">@ViewData["lblWelcome"]</span>
+            </td>
+        </tr>
+        @if (@ViewData["lblMessage"] != null)
+        {
+            <tr>
+                <td align="center" colspan="4">
+                    <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                </td>
+            </tr>
+        }
+    </table>
+    <table width="100%">
+        <tr>
+            <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">Activation Request</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Request Details</strong></font></legend>
+                    <table width="82%">
+                        <tr>
+                            <td colspan="4" style="height: 5px" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Ticket #:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                <span id="lblTicketNo" style="height:20px; border-color:black; border-style:solid; border-width:1px; width:170px">@Model.ticketId</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Activation Team:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                @Html.DropDownListFor(ddl => ddl.selectedActivationTeam, Model.ddlActivationTeam, "Please select ...", new { style = "width: 240px;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Service Name:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                @Html.DropDownListFor(ddl => ddl.selectedService, Model.ddlService, "Please select ...", new { style = "width: 240px;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Product Name:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                @Html.DropDownListFor(ddl => ddl.selectedProduct, Model.ddlProduct, "Please select ...", new { style = "width: 240px;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Channel Type:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                @Html.DropDownListFor(ddl => ddl.selectedChannel, Model.ddlChannelType, "Please select ...", new { style = "width: 240px;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Channel Name:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                @Html.DropDownListFor(ddl => ddl.selectedChannelName, Model.ddlChannelName, "Please select ...", new { style = "width: 240px;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Total Quantity:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                <input type="text" id="txtTotalQuantity" name="txtTotalQuantity" style="width:50px" />
+                                <input type="checkbox" id="chkUrgent" name="chkUrgent" />&nbsp;<span style="font-weight:bold">Urgent</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="middle" colspan="2" class="leftCell">
+                                Remarks:
+                            </td>
+                            <td valign="middle" colspan="2" class="rightCell">
+                                <textarea id="txtRemarks" name="txtRemarks" style="height:70px; width:300px"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Particulars:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                <table width="80%" style="border-top: cornflowerblue thin solid; border-left: cornflowerblue thin solid; border-right: cornflowerblue thin solid; border-bottom: cornflowerblue thin solid;" cellpadding="2" cellspacing="0">
+                                    <tr>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            SL#
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            MSISDN
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-bottom: cornflowerblue thin dashed;">
+                                            SIM
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            SL#
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            MSISDN
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-bottom: cornflowerblue thin dashed;">
+                                            SIM
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            01.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN1" name="txtMSISDN[0]" value="@Model.msisdnSims[0].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM1" name="txtSIM[0]" value="@Model.msisdnSims[0].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            06.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN6" name="txtMSISDN[5]" value="@Model.msisdnSims[5].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM6" name="txtSIM[5]" value="@Model.msisdnSims[5].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            02.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN2" name="txtMSISDN[1]" value="@Model.msisdnSims[1].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM2" name="txtSIM[1]" value="@Model.msisdnSims[1].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            07.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN7" name="txtMSISDN[6]" value="@Model.msisdnSims[6].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM7" name="txtSIM[6]" value="@Model.msisdnSims[6].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            03.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN3" name="txtMSISDN[2]" value="@Model.msisdnSims[2].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM3" name="txtSIM[2]" value="@Model.msisdnSims[2].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            08.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN8" name="txtMSISDN[7]" value="@Model.msisdnSims[7].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM8" name="txtSIM[7]" value="@Model.msisdnSims[7].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            04.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN4" name="txtMSISDN[3]" value="@Model.msisdnSims[3].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM4" name="txtSIM[3]" value="@Model.msisdnSims[3].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            09.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN9" name="txtMSISDN[8]" value="@Model.msisdnSims[8].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM9" name="txtSIM[8]" value="@Model.msisdnSims[8].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed;">
+                                            05.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN5" name="txtMSISDN[4]" value="@Model.msisdnSims[4].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <input type="text" id="txtSIM5" name="txtSIM[4]" value="@Model.msisdnSims[4].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed;">
+                                            10.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN10" name="txtMSISDN[9]" value="@Model.msisdnSims[9].msisdn" style="width:100px; background-color:gainsboro" />&nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <input type="text" id="txtSIM10" name="txtSIM[9]" value="@Model.msisdnSims[9].simNo" style="width:140px; background-color:aliceblue" />&nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Select Documents to Attach:
+                            </td>
+                            <td colspan="2" class="rightCell">
+                                <input type="file" id="fileupload" name="files" style="width:300px; height:24px" />&nbsp;
+                                <input type="button" id="btnupload" value="Upload" style="width:80px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="leftCell">
+                                Attached Documents:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                <div id="divAttachMent">
+                                    @if (Model.attachmentTable != null && !String.IsNullOrEmpty(Model.attachmentTable))
+                                    {
+                                        @Html.Raw(Model.attachmentTable)
+                                    }
+                                </div>
+                                <br />
+                                <input type="button" id="btnRemove" style="width:120px" value="Remove File" />
+                                <input type="submit" id="btnAttach" style="width:120px" value="Attach With Mail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="4">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="2">
+                                &nbsp;
+                            </td>
+                            <td align="center" colspan="2">
+                                <input type="checkbox" id="chkMailEditor" asp-action="chkMailEditor_CheckedChanged" />
+                                <span id="lblChkMailEditor" style="font-weight:bold; font-size:small">Show Mail Editor</span>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr id="rowMailEditor">
+            <td colspan="4">
+                <div id="rowMailEditorDiv">
+                    <fieldset>
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Mail Editor</strong></font></legend>
+                        <table width="80%">
+                            <tr>
+                                <td colspan="4" style="height: 5px" class="leftCell">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail To:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <input type="text" id="txtMailTo" style="width:350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail CC:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <input type="text" id="txtMailCC" style="width:350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail Subject:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <input type="text" id="txtMailSubject" style="width:350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail Attachment:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <span id="lblMailAttachment" style="width:350px"></span>
+                                    <input type="hidden" value="" name="txtMailAttachment" id="mailAttachment" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" valign="middle" class="leftCell">
+                                    Mail Body:
+                                </td>
+                                <td colspan="3" valign="middle" class="rightCell">
+                                    <textarea id="txtMailBody" style="height:70px; width:350px"></textarea>
+                                    <input type="submit" id="btnSendMail" value="Send Mail" />
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                    </fieldset>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="4" style="height: 10px">
+                @if (!string.IsNullOrEmpty(ViewData["btnSave_Enabled"].ToString()) && ViewData["btnSave_Enabled"].ToString().Equals("disabled"))
+                {
+                    <input type="submit" id="btnSave" value="Save" style="width:140px" asp-action="btnSave_Click" disabled />
+                }
+                else
+                {
+                    <input type="submit" id="btnSave" value="Save" style="width:140px" asp-action="btnSave_Click" />
+                }
+            <input type="submit" id="btnReturn" value="Return" style="width:140px" asp-controller="ActivationRequest" asp-action="btnReturn_Click" />
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $("#rowMailEditorDiv").hide();
+        });
+        $(document).ready(function () {
+            $("#chkMailEditor").click(function () {
+                if ($(this).is("input:checked")) {
+                    $("#rowMailEditorDiv").show();
+                } else {
+                    $("#rowMailEditorDiv").hide();
+                }
+            });
+        });
+        $(function () {
+            $('#btnupload').on('click', function () {
+                var filename = $('#fileupload').val();
+                if (filename.length == 0) {
+                    alert("Please select a file.");
+                    return false;
+                }
+                var fdata = new FormData();
+                var fileUpload = $("#fileupload").get(0);
+                var files = fileUpload.files;
+                fdata.append(files[0].name, files[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/ActivationRequest/FileUpload",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: fdata,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.length == 0)
+                            alert('Some error occured while uploading');
+                        else {
+                            $('#divAttachMent').html(response);
+                        }
+                    },
+                    error: function (e) {
+                        $('#divAttachMent').html(e.responseText);
+                    }
+                });
+            })
+        });
+        $(document).ready(function () {
+            $('#btnRemove').on('click', function () {
+                var checkedFiles = [];
+                $('input:checked').each(function () {
+                    checkedFiles.push($(this).attr("value"));
+                });
+                $.ajax({
+                    url: "/ActivationRequest/RemoveFile",
+                    type: "POST",
+                    data: { checkedFiles: checkedFiles },
+
+                    traditional: true,
+                    success: function (response) {
+                        $('#divAttachMent').html(response);
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $('#btnAttach').on('click', function () {
+                var checkedFiles = [];
+                $('input:checked').each(function () {
+                    checkedFiles.push($(this).attr("value"));
+                });
+                $.ajax({
+                    url: "/ActivationRequest/btnAttachment",
+                    type: "POST",
+                    data: { checkedFiles: checkedFiles },
+                    traditional: true,
+                    success: function (response) {
+                        $('#divMailAttachment').html(response);
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $("#btnSendMail").click(function (e) {
+                //Serialize the form datas.   
+                var valdata = $("#executionForm").serialize();
+                //to get alert popup   
+                //alert(valdata);
+                $.ajax({
+                    url: "/ActivationRequest/btnSendMail",
+                    type: "POST",
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: valdata
+                });
+            });
+        }); 
+        $("#selectedActivationTeam").change(function () {
+            var selectedActivationTeam = $("#selectedActivationTeam").val();
+            var url = '/ActivationRequest/GetServiceForTeamChange';
+            $.getJSON(url, { selectedTeam: selectedActivationTeam }, function (data) {
+                var item = "<option value=''>Please select ...</option>";
+                $("#selectedService").empty();
+                $.each(data, function (i, service) {
+                    item += '<option value="' + service.value + '">' + service.text + '</option>'
+                });
+                $("#selectedService").html(item);
+            });
+            var url1 = '/ActivationRequest/GetChannelForTeamChange';
+            $.getJSON(url1, { selectedTeam: selectedActivationTeam }, function (data) {
+                var item = "<option value=''>Please select ...</option>";
+                $("#selectedChannel").empty();
+                $.each(data, function (i, channelType) {
+                    item += '<option value="' + channelType.value + '">' + channelType.text + '</option>'
+                });
+                $("#selectedChannel").html(item);
+            });
+        });
+        $("#selectedService").change(function () {
+            var selectedService = $("#selectedService").val();
+            var url = '/ActivationRequest/GetProductForServiceChange';
+            $.getJSON(url, { selectedService: selectedService }, function (data) {
+                var item = "<option value=''>Please select ...</option>";
+                $("#selectedProduct").empty();
+                $.each(data, function (i, product) {
+                    item += '<option value="' + product.value + '">' + product.text + '</option>'
+                });
+                $("#selectedProduct").html(item);
+            });
+        });
+        $("#selectedChannel").change(function () {
+            var selectedChannel = $("#selectedChannel").val();
+            var url = '/ActivationRequest/GetChannelNameForType';
+            $.getJSON(url, { selectedChannel: selectedChannel }, function (data) {
+                var item = "<option value=''>Please select ...</option>";
+                $("#selectedChannelName").empty();
+                $.each(data, function (i, channelName) {
+                    item += '<option value="' + channelName.value + '">' + channelName.text + '</option>'
+                });
+                $("#selectedChannelName").html(item);
+            });
+        });
+    </script>
+</form>

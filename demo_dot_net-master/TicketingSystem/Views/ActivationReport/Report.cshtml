@@ -1,0 +1,125 @@
+﻿@model TicketingSystem.Models.ActivationReportModel
+    <form method="post">
+        <table width="100%">
+            <tr>
+                <td align="right" colspan="4">
+                    <span id="_lblWelcome">@ViewData["lblWelcome"]</span>
+                </td>
+            </tr>
+            @if (@ViewData["lblMessage"] != null)
+            {
+                <tr>
+                    <td align="center" colspan="4">
+                        <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                    </td>
+                </tr>
+            }
+        </table>
+        <table width="100%">
+            <tr>
+                <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                    <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">Activation Report</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    <input type="submit" asp-controller="ActivationReport" asp-action="btnActivationDashboard_Click" value="Activation Dashboard" class="menuButton" Width="140" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    <fieldset style="width: 1035px">
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Report Options</strong></font></legend>
+                        <table width="750px">
+                            <tr>
+                                <td colspan="4" style="height: 5px" class="leftCell">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; height: 20px;" class="leftCell">
+                                    Request Date From:
+                                </td>
+                                <td style="width: 30%; height: 20px;" class="rightCell">
+                                    <input type="text" id="datepicker" name="txtRequestDateFrom" value="@Model.txtRequestDateFrom">
+                                </td>
+                                <td style="width: 20%; height: 20px;" class="leftCell">
+                                    Request Date To:
+                                </td>
+                                <td style="width: 30%; height: 20px;" class="rightCell">
+                                    <input type="text" id="datepicker1" name="txtRequestDateTo" value="@Model.txtRequestDateTo">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" align="center" valign="middle" style="height: 35px">
+                                    <input type="submit" asp-controller="ActivationReport" asp-action="ReportSearh" value="Show" style="width:120px;" />
+                                    <input type="submit" asp-controller="ActivationReport" asp-action="Excel" value="Export To Excel" style="width:120px;" />
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <br />
+                    <fieldset style="width: 1035px">
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Report Viewer</strong></font></legend>
+                        <br />
+                        <div>
+                            @if (Model.list != null && Model.list.Any()) {
+                                <table cellspacing="0" rules="all" border="1" id="_gvActivationReport" style="width:90%;border-collapse:collapse;">
+                                    <tr style="background-color:#CCE4F5;font-weight:bold;height:20px;">
+                                        <th scope="col">TICKET_NO</th>
+                                        <th scope="col">CHANNEL_TYPE</th>
+                                        <th scope="col">CHANNEL_NAME</th>
+                                        <th scope="col">SERVICE_NAME</th>
+                                        <th scope="col">PRODUCT_NAME</th>
+                                        <th scope="col">TICKET_CREATE_DATE</th>
+                                        <th scope="col">TICKET_ASSIGN_DATE</th>
+                                        <th scope="col">TICKET_CLOSE_DATE</th>
+                                        <th scope="col">TOTAL_EXECUTION_TIME</th>
+                                        <th scope="col">TOTAL_WAITING_TIME</th>
+                                        <th scope="col">TICKET_STATUS</th>
+                                        <th scope="col">TICKET_ASSIGN_USER</th>
+                                        <th scope="col">TOTAL_QUANTITY</th>
+                                        <th scope="col">EXEC_QUANTITY</th>
+                                        <th scope="col">EXEC_USER</th>
+                                    </tr>
+                                    @foreach (ActivationReqMasterModel mod in Model.list) { 
+                                    <tr style="color:Black;background-color:White;height:18px;">
+                                        <td>2020030410304813</td>
+                                        <td>Enterprise Business</td>
+                                        <td>Corporate</td>
+                                        <td>New Activation</td>
+                                        <td>New activation BS Postpaid</td>
+                                        <td>3/4/2020 10:32:40 AM</td>
+                                        <td>3/5/2020 8:40:56 AM</td>
+                                        <td>3/5/2020 8:46:40 AM</td>
+                                        <td>22:14:00</td>
+                                        <td>22:08:16</td>
+                                        <td>CLOSE</td>
+                                        <td>a_mamun</td>
+                                        <td>4</td>
+                                        <td>4</td>
+                                        <td>a_mamun</td>
+                                    </tr>}
+                                </table>}
+                        </div>
+                        <br />
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+</form>

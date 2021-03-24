@@ -1,0 +1,266 @@
+@model TicketingSystem.Models.ActivationDashboardModel
+<script type="text/javascript">
+    //snippet title: Fixed Positioning/Freezing a Gridview Header using jQuery
+    //snippet source: http://www.mitchsmind.com/fixed-positioningfreezing-a-gridview-header-using-jquery
+    $(document).ready(function () {
+        //set the height you want the grid columns to max out at
+        var height = '400px';
+        //setup a variable for the html to replace
+        var html = '';
+        //add a copy of the GridView at the top of the container element
+        //this will be positioned basically ontop of the actual data
+        //and clipped to the height of the header to lock it in place
+        html += '<div style="position:absolute;width:1030px;padding-right:17px;overflow:hidden;height:24px;z-index:10;">';
+        //now add the GridView content
+        html += $('#gvActivationRequest').parent().html();
+        //close overlay div
+        html += '</div>';
+        //add the scrolling div to make it scroll
+        html += '<div style="width:1030px;height:' + height + ';overflow:hidden;overflow-y:scroll;">';
+        //add a div to hold the content
+        html += '<div style="overflow-x:hidden;width:1030px;">';
+        //add the GridView contents
+        html += $('#gvActivationRequest').parent().html();
+        //close content div
+        html += '</div>';
+        //close scrolling div
+        html += '</div>';
+        //now replace the container div with the newly generated html
+        $('#divFreezerContainer').html(html);
+    });
+</script>
+<form method="post">
+    <table width="100%">
+        <tr>
+            <td align="right" colspan="4">
+                <span id="ctl00_ContentPlaceHolder1_lblWelcome">@ViewData["lblWelcome"]</span>
+            </td>
+        </tr>
+        @if (@ViewData["lblMessage"] != null)
+        {
+            <tr>
+                <td align="center" colspan="4">
+                    <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <table width="100%">
+        <tr>
+            <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">Activation Dashboard</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <input type="submit" asp-controller="MyRequest" asp-action="MyRequest" value="My Requests" class="menuButton" />
+                <input type="submit" asp-controller="SearchAllTicket" asp-action="AllTicket" value="Search Ticket" class="menuButton" />
+                <input type="submit" asp-controller="ActivationReport" asp-action="Report" value="View Report" class="menuButton" />
+                <input type="submit" asp-controller="UserManagement" asp-action="UserMgt" value="User Management" class="menuButton" />
+                <input type="submit" asp-controller="ActivationDashboard" asp-action="Btn_Management" value="Channel Management" class="menuButton" style="width:140px" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Ticket Summary</strong></font></legend>
+                    <br />
+                    <div>
+                        @if (Model.listTicketSummary != null && Model.listTicketSummary.Any())
+                        {
+                            <table cellspacing="0" rules="all" border="1" id="gvTicketSummary" style="width:80%;border-collapse:collapse;">
+                                <tr style="background-color:#CCE4F5;font-weight:bold;height:20px;">
+                                    <th scope="col">Request Date</th>
+                                    <th scope="col">Total Received</th>
+                                    <th scope="col">Total Assigned</th>
+                                    <th scope="col">Total Closed</th>
+                                    <th scope="col">Total Hold</th>
+                                    <th scope="col">Total Rejected</th>
+                                    <th scope="col">Total Pending</th>
+                                </tr>
+                                @foreach (ActivationTicketSummaryModel ticketSummaryModel in Model.listTicketSummary)
+                                {
+                                    <tr style="color:Black;height:18px;">
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@ticketSummaryModel.requestDate</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@ticketSummaryModel.totalReceived</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@ticketSummaryModel.totalAssigned</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@ticketSummaryModel.totalClosed</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@ticketSummaryModel.totalHold</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@ticketSummaryModel.totalRejected</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@ticketSummaryModel.totalPending</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                    </div>
+                    <br />
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Team Summary</strong></font></legend>
+                    <table width="80%">
+                        <tr>
+                            <td colspan="2" style="height: 5px" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                Execution Date:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                <input type="text" id="datepicker" name="txtExecutionDate" value="@Model.txtExecutionDate">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                Executor Name:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                @Html.DropDownListFor(m => m.selectedExecutor, Model.executor, "Please select ...")
+                                &nbsp;
+                                <input type="submit" asp-controller="ActivationDashBoard" asp-action="Dashboard" name="btnViewTeamSummary" value="View" id="tnViewTeamSummary" style="width:100px;" />
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <div>
+                        @if (Model.listTeamSummary != null && Model.listTeamSummary.Any())
+                        {
+                            <table cellspacing="0" rules="all" border="1" id="gvTeamSummary" style="width:80%;border-collapse:collapse;">
+                                <tr style="background-color:#CCE4F5;font-weight:bold;height:20px;">
+                                    <th scope="col">Executor Name</th>
+                                    <th scope="col">Total Assigned</th>
+                                    <th scope="col">Total Closed</th>
+                                    <th scope="col">Total Hold</th>
+                                    <th scope="col">Total Rejected</th>
+                                </tr>
+                                @foreach (ActivationTeamSummaryModel teamSummaryModel in Model.listTeamSummary)
+                                {
+                                    <tr style="color:Black;height:18px;">
+                                        <td>
+                                            <span id="" style="display:inline-block;width:150px;">@teamSummaryModel.userId</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@teamSummaryModel.totalAssigned</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@teamSummaryModel.totalClosed</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@teamSummaryModel.totalHold</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@teamSummaryModel.totalRejected</span>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </table>
+                        }
+                    </div>
+                    <br />
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Recent Tickets Status</strong></font></legend>
+                    <br />
+                    <div id="divFreezerContainer" style="width:1030px;">
+                        <div>
+                            <table cellspacing="0" rules="all" border="1" id="gvActivationRequest" style="width:90%;border-collapse:collapse;">
+                                <tr style="background-color:#CCE4F5;font-weight:bold;height:20px;">
+                                    <th scope="col">Request Date</th>
+                                    <th scope="col">Ticket #</th>
+                                    <th scope="col">Service Name</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Urgent</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Requester</th>
+                                    <th scope="col">Assigned User</th>
+                                    <th scope="col">Alarm</th>
+                                </tr>
+                                @foreach (ActivationReqMasterModel activationReq in Model.listReqMaster)
+                                {
+
+                                    <tr style="color:Black;height:18px;">
+                                        <td>
+                                            <span id="" style="display:inline-block;width:75px;">@activationReq.ticketCreateDate</span>
+                                        </td>
+                                        <td style="white-space:nowrap;">
+                                            <a id="" href="/ActivationExecution/Execution?reqticketno=@activationReq.ticketNo" style="display:inline-block;width:110px;" target="_blank">@activationReq.ticketNo</a>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:150px;">@activationReq.serviceName</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:120px;">@activationReq.productName</span>
+                                        </td>
+                                        <td style="white-space:nowrap;">
+                                            <span id="" style="display:inline-block;width:50px;">@activationReq.isUrgent</span>
+                                        </td>
+                                        <td style="white-space:nowrap;">
+                                            <span id="" style="display:inline-block;width:80px;">@activationReq.ticketStatus</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@activationReq.ticketCreateUser</span>
+                                        </td>
+                                        <td>
+                                            <span id="" style="display:inline-block;width:100px;">@activationReq.ticketAssignUser</span>
+                                        </td>
+                                        <td>
+                                            <img alt="alarm" height="32" width="32" src='~/images/@activationReq.alarm' />
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <br />
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+            </td>
+        </tr>
+    </table>
+</form>

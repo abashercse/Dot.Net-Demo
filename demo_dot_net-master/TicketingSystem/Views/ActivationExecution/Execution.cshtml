@@ -1,0 +1,587 @@
+@model ActivationExecutionViewModel
+
+<form id="executionForm" method="post">
+    <table width="100%">
+        <tr>
+            <td align="right" colspan="4">
+                <span id="ctl00_ContentPlaceHolder1_lblWelcome">@ViewData["lblWelcome"]</span>
+            </td>
+        </tr>
+        @if (@ViewData["lblMessage"] != null)
+        {
+            <tr>
+                <td align="center" colspan="4">
+                    <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                </td>
+            </tr>
+        }
+    </table>
+    <table width="100%">
+        <tr>
+            <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">Activation Execution</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Request Details</strong></font></legend>
+                    <table width="90%">
+                        <tr>
+                            <td colspan="4" style="height: 5px" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Ticket #:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblTicketNo" style="height:20px; width:170px; border-color:black; border-style:solid; border-width:1px">@Model.executionMaster.ticketId</span>
+                            </td>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Activation Team:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblActivationTeam" style="width:100px">@Model.executionMaster.activationTeam</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Requested By:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblRequestedBy" style="width:300px">@Model.executionMaster.requestedBy</span>
+                            </td>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Requested Date:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblRequestedDate" style="width:300px">@Model.executionMaster.requestedDate</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Service Name:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblService" style="width:300px">@Model.executionMaster.serviceName</span>
+                            </td>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Product Name:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblProduct" style="width:300px">@Model.executionMaster.productName</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Channel Type:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblChannelType" style="width:300px">@Model.executionMaster.channelType</span>
+                            </td>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Channel Name:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <span id="lblChannelName" style="width:300px">@Model.executionMaster.channelName</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell" style="width: 20%">
+                                Total Quantity:
+                            </td>
+                            <td colspan="1" class="rightCell" style="width: 30%">
+                                <input id="txtTotalQuantity" type="text" style="width:50px" value="@Model.executionMaster.totalQuantity" readonly />
+                                <input id="chkUrgent" type="checkbox" disabled @Model.executionMaster.checkUrgent />
+                                <span id="lblUrgent" style="font-weight:bold">Urgent</span>
+                            </td>
+                            <td colspan="1" valign="middle" class="leftCell" style="width: 20%">
+                                Remarks:
+                            </td>
+                            <td colspan="1" valign="middle" class="rightCell" style="width: 30%">
+                                <textarea id="txtRemarks" style="height:70px; width:300px; resize:none" readonly>
+                                    @Model.executionMaster.remarks
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Particulars:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                <table width="80%" style="border-top: cornflowerblue thin solid; border-left: cornflowerblue thin solid; border-right: cornflowerblue thin solid; border-bottom: cornflowerblue thin solid;" cellpadding="2" cellspacing="0">
+                                    <tr>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            SL#
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            MSISDN
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-bottom: cornflowerblue thin dashed;">
+                                            SIM
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            SL#
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            MSISDN
+                                        </td>
+                                        <td align="center" style="font-weight: bold; border-bottom: cornflowerblue thin solid; border-bottom: cornflowerblue thin dashed;">
+                                            SIM
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            01.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN1" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[0].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM1" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[0].simNo" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            06.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN6" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[5].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM6" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[5].simNo" readonly />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            02.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN2" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[1].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM2" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[1].simNo" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            07.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN7" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[6].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM7" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[6].simNo" readonly />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            03.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN3" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[2].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM3" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[2].simNo" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            08.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN8" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[7].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM8" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[7].simNo" readonly />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            04.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN4" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[3].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM4" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[3].simNo" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            09.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed; border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN9" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[8].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-bottom: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtSIM9" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[8].simNo" readonly />&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed;">
+                                            05.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN5" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[4].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <input type="text" id="txtSIM5" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[4].simNo" readonly />&nbsp;
+                                        </td>
+                                        <td align="center" style="border-left: cornflowerblue thin solid; border-right: cornflowerblue thin dashed;">
+                                            10.
+                                        </td>
+                                        <td align="center" style="border-right: cornflowerblue thin dashed;">
+                                            <input type="text" id="txtMSISDN10" style="width:100px; background-color:gainsboro" value="@Model.msisdnList[9].msisdn" readonly />&nbsp;
+                                        </td>
+                                        <td align="center">
+                                            <input type="text" id="txtSIM10" style="width:140px; background-color:aliceblue" value="@Model.msisdnList[9].simNo" readonly />&nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Attached Documents:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                <div id="divAttachMent">
+                                    @if (Model.attachmentTable != null)
+                                    {
+                                        @Html.Raw(Model.attachmentTable)
+                                    }
+                                </div>
+                                <br />
+                                <input type="button" id="btnRemove" style="width:120px" value="Remove File" />
+                                <input type="button" id="btnAttach" style="width:120px" value="Attach With Mail"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Execution Details</strong></font></legend>
+                    <table width="80%">
+                        <tr>
+                            <td colspan="4" style="height: 5px" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Select Documents to Attach:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                <input type="file" id="fileupload" name="files" style="width:300px; height:24px" />&nbsp;
+                                <input type="button" id="btnupload" value="Upload" style="width:80px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Execution History:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                @if (Model.executionHistories != null && Model.executionHistories.Any())
+                                {
+                                    <table id="gvExecutionHistory" width="60%" style="border-collapse: collapse">
+                                        <tr style="height:15px; font-weight:bold; background-color:gray">
+                                            <td>Execution Date</td>
+                                            <td>Executed Qty</td>
+                                            <td>Executed By</td>
+                                        </tr>
+                                        @foreach (ExecutionHistory history in Model.executionHistories)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span id="lblExectionDate">@history.execDate</span>
+                                                </td>
+                                                <td>
+                                                    <span id="lblExecutionQty">@history.execQty</span>
+                                                </td>
+                                                <td>
+                                                    <span id="lblExecutedBy">@history.execUser</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Remaining Quantity:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                <input type="text" id="txtRemainingQuantity" style="width:50px" value="@Model.executionMaster.remainingQuantity" name="txtRemainingQuantity" readonly />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Execution Quantity:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                <input type="text" id="txtExecutionQuantity" style="width:50px" value="@Model.executionMaster.executionQuantity" name="txtExecutionQuantity" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" valign="middle" class="leftCell">
+                                Executor Comments:
+                            </td>
+                            <td colspan="3" valign="middle" class="rightCell">
+                                <textarea id="txtComments" style="height:70px; width:300px" name="txtComments">@Model.executionMaster.comments</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Execution Type:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                @Html.DropDownListFor(m => m.selectedExecType, Model.execType, new { style = "width: 150px" });
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Ticket Status:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                @Html.DropDownListFor(m => m.selectedTicketStatus, Model.ticketStatus, new { style = "width: 150px" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="leftCell">
+                                Execution User:
+                            </td>
+                            <td colspan="3" class="rightCell">
+                                @if (!string.IsNullOrEmpty(ViewData["TICKET_STATUS"].ToString()) && !ViewData["TICKET_STATUS"].ToString().Equals("OPEN"))
+                                {
+                                    @Html.DropDownListFor(m => m.selectedExecutor, Model.executor, Model.executionMaster.execUser , new { style = "width: 150px", @disabled = "true" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(m => m.selectedExecutor, Model.executor, "Please select ...", new { style = "width: 150px" })
+                                }                      
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="4">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1">
+                                &nbsp;
+                            </td>
+                            <td align="center" colspan="3">
+                                <input type="checkbox" id="chkMailEditor" />
+                                <span id="lblChkMailEditor" style="font-weight:bold; font-size:small">Show Mail Editor</span>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+
+        <tr id="rowMailEditor">
+            <td colspan="4">
+                <div id="rowMailEditorDiv">
+                    <fieldset>
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Mail Editor</strong></font></legend>
+                        <table width="80%">
+                            <tr>
+                                <td colspan="4" style="height: 5px" class="leftCell">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail To:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <input type="text" name="txtMailTo" id="txtMailTo" style="width:350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail CC:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <input type="text" name="txtMailCC" id="txtMailCC" style="width:350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail Subject:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <input type="text" name="txtMailSubject" id="txtMailSubject" style="width:350px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="leftCell">
+                                    Mail Attachment:
+                                </td>
+                                <td colspan="3" class="rightCell">
+                                    <div id="divMailAttachment">
+                                        <span id="lblMailAttachment" style="width:350px"></span>
+                                        <input type="hidden" value="" name="txtMailAttachment" id="mailAttachment" />
+                                    </div>                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" valign="middle" class="leftCell">
+                                    Mail Body:
+                                </td>
+                                <td colspan="3" valign="middle" class="rightCell">
+                                    <textarea id="txtMailBody" name="txtMailBody" style="height:70px; width:350px"></textarea>
+                                    <input type="button" id="btnSendMail" value="Send Mail" />
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                    </fieldset>
+                </div>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td align="center" colspan="4" style="height: 10px">
+                @if (!string.IsNullOrEmpty(ViewData["btnSave_Enabled"].ToString()) && ViewData["btnSave_Enabled"].ToString().Equals("disabled"))
+                {
+                    <input type="submit" id="btnSave" value="Save" style="width:140px" asp-action="btnSave_Click" disabled />
+                }
+                else
+                {
+                    <input type="submit" id="btnSave" value="Save" style="width:140px" asp-action="btnSave_Click" />
+                }
+                <input type="submit" id="btnReturn" value="Return" style="width:140px" asp-action="btnReturn_Click" />
+            </td>
+        </tr>
+        @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+        {
+            <tr>
+                <td align="center" colspan="4">
+                    <span id="lblError" style="color:Red;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData.ModelState["Error"].Errors.First().ErrorMessage</span>
+                </td>
+            </tr>
+        }
+    </table>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $("#rowMailEditorDiv").hide();
+        });
+        $(document).ready(function () {
+            $("#chkMailEditor").click(function () {
+                if ($(this).is("input:checked")) {
+                    $("#rowMailEditorDiv").show();
+                } else {
+                    $("#rowMailEditorDiv").hide();
+                }
+            });
+        });
+
+        $(function () {
+            $('#btnupload').on('click', function () {
+                var filename = $('#fileupload').val();
+                if (filename.length == 0) {
+                    alert("Please select a file.");
+                    return false;
+                }
+                var fdata = new FormData();
+                var fileUpload = $("#fileupload").get(0);
+                var files = fileUpload.files;
+                fdata.append(files[0].name, files[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/ActivationExecution/FileUpload",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: fdata,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.length == 0)
+                            alert('Some error occured while uploading');
+                        else {
+                            $('#divAttachMent').html(response);
+                        }
+                    },
+                    error: function (e) {
+                        $('#divAttachMent').html(e.responseText);
+                    }
+                });
+            })
+        });
+
+        $(document).ready(function () {
+            $('#btnRemove').on('click', function () {
+                var checkedFiles = [];
+                $('input:checked').each(function () {
+                    checkedFiles.push($(this).attr("value"));
+                });
+                $.ajax({
+                    url: "/ActivationExecution/RemoveFile",
+                    type: "POST",
+                    data: { checkedFiles: checkedFiles },
+                    traditional: true,
+                    success: function (response) {
+                        $('#divAttachMent').html(response);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#btnAttach').on('click', function () {
+                var checkedFiles = [];
+                $('input:checked').each(function () {
+                    checkedFiles.push($(this).attr("value"));
+                });
+                $.ajax({
+                    url: "/ActivationExecution/btnAttachment",
+                    type: "POST",
+                    data: { checkedFiles: checkedFiles },
+                    traditional: true,
+                    success: function (response) {
+                        $('#divMailAttachment').html(response);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $("#btnSendMail").click(function (e) {
+                //Serialize the form datas.   
+                var valdata = $("#executionForm").serialize();
+                //to get alert popup   
+                //alert(valdata);
+                $.ajax({
+                    url: "/ActivationExecution/btnSendMail",
+                    type: "POST",
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: valdata
+                });
+            });
+        }); 
+        $("#selectedTicketStatus").change(function () {
+            var selectedTicketStatus = $("#selectedTicketStatus").val();
+            var url = '/ActivationExecution/GetExecutorForStatusChange';
+            $.getJSON(url, { selectedStatus: selectedTicketStatus }, function (data) {
+                if (selectedTicketStatus == "ASSIGNED") {
+                    var item = "<option value=''>Please select ...</option>";
+                    $("#selectedExecutor").empty();
+                    $.each(data, function (i, user) {
+                        item += '<option value="' + user.value + '">' + user.text + '</option>'
+                    });
+                    $("#selectedExecutor").html(item);
+                }                
+            });
+        });
+    </script>
+</form>

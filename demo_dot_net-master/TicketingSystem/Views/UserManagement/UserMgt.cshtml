@@ -1,0 +1,172 @@
+﻿@model UserManagementViewModel
+<form method="post" action="@Url.Action("UserChange", "UserManagement")">
+    <table width="100%">
+        <tr>
+            <td align="right" colspan="4">
+                <span id="lblWelcome">@ViewData["lblWelcome"]</span>
+            </td>
+        </tr>
+        @if (@ViewData["lblMessage"] != null)
+        {
+            <tr>
+                <td align="center" colspan="4">
+                    <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                </td>
+            </tr>
+        }
+    </table>
+    <table width="100%">
+        <tr>
+            <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">User Management</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <input type="submit" asp-controller="UserManagement" asp-action="Btn_MyRequest" value="My Requests" class="menuButton" style="width:140px" />
+                <input type="submit" asp-controller="UserManagement" asp-action="Btn_Dashboard" value="Activation Dashboard" class="menuButton" style="width:140px" />
+                <input type="submit" asp-controller="UserManagement" asp-action="Btn_Management" value="Channel Management" class="menuButton" style="width:140px" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                <fieldset>
+                    <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Search Criteria</strong></font></legend>
+                    <table width="80%">
+                        <tr>
+                            <td colspan="4" style="height: 5px" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                User:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                <span style="width:260px" id="ddlUserList">
+                                    @Html.DropDownListFor(ddl => ddl.selectedUser, Model.userList, "Please select ...", new { style = "width: 260px", onchange = "this.form.submit()" })
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                &nbsp;
+                            </td>
+                            <td style="width: 80%" class="leftCell">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                Distribution House:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                <span style="width:260px" id="ddlDH">
+                                    @Html.DropDownListFor(ddl => ddl.userDetails.dhName, Model.dhList, "Please select ...", new { style = "width: 260px" })
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                User Name:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                <input type="text" id="txtUserName" name="txtUserName" style="width:159px; height:21px" value="@Model.userDetails.userName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                User ID:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                @if (!string.IsNullOrEmpty(ViewData["txtUserId_Enabled"].ToString()) && ViewData["txtUserId_Enabled"].ToString().Equals("disabled"))
+                                {
+                                    <input type="text" id="txtUserId" name="txtUserId" style="width:160px" value="@Model.userDetails.userId" disabled />
+                                }
+                                else
+                                {
+                                    <input type="text" id="txtUserId" name="txtUserId" style="width:160px" value="@Model.userDetails.userId" />
+                                } &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span id="lblPassword">@ViewData["Password"].ToString()</span>
+                                <input type="submit" id="btn_passReset" value="Reset Password" asp-controller="UserManagement" asp-action="btn_passReset_Click" />
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td style="width: 20%" class="leftCell">
+                                Created By:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                <input type="text" id="txtCreatedBy" name="txtCreatedBy" style="width:159px" value="@Model.userDetails.userName" disabled />
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="width: 40%" class="leftCell">
+                                Created On:
+                            </td>
+                            <td style="width: 80%" class="rightCell">
+                                <input type="text" id="txtCreatedOn" name="txtCreatedOn" style="width:159px" value="@Model.userDetails.createdOn" disabled />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right" valign="middle" style="height: 35px">
+                                <input type="submit" id="btnReset" value="Reset" style="width:100px" asp-action="BtnReset_Click" />
+                                @if (!string.IsNullOrEmpty(ViewData["btnCreate_Enabled"].ToString()) && ViewData["btnCreate_Enabled"].ToString().Equals("disabled"))
+                                {
+                                    <input type="submit" id="btnCreate" value="Create" style="width:100px" asp-action="BtnCreate_Click" disabled />
+                                }
+                                else
+                                {
+                                    <input type="submit" id="btnCreate" value="Create" style="width:100px" asp-action="BtnCreate_Click" />
+                                }
+                                @if (!string.IsNullOrEmpty(ViewData["btnUpdate_Enabled"].ToString()) && ViewData["btnUpdate_Enabled"].ToString().Equals("disabled"))
+                                {
+                                    <input type="submit" id="btnUpdate" value="Update" style="width:100px" asp-action="BtnUpdate_Click" disabled />
+                                }
+                                else
+                                {
+                                    <input type="submit" id="btnUpdate" value="Update" style="width:100px" asp-action="BtnUpdate_Click" />
+                                }
+                                @if (!string.IsNullOrEmpty(ViewData["btnDelete_Enabled"].ToString()) && ViewData["btnDelete_Enabled"].ToString().Equals("disabled"))
+                                {
+                                    <input type="submit" id="btnDelete" value="Delete" style="width:100px" asp-action="BtnDelete_Click" disabled />
+                                }
+                                else
+                                {
+                                    <input type="submit" id="btnDelete" value="Delete" style="width:100px" asp-action="BtnDelete_Click" />
+                                }
+                            </td>
+
+                        </tr>
+                    </table>
+                </fieldset>
+                <br />
+
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+</form>

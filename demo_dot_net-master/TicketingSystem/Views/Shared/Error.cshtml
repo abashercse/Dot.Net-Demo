@@ -1,0 +1,29 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<div>
+    <table width="100%">
+        <tr>
+            <td style="width:100%; text-align:center; height:380px; vertical-align:middle; background-color: gainsboro; border-right: #000000 thin double; border-top: #000000 thin double; border-left: #000000 thin double; border-bottom: #000000 thin double;">
+                <strong>
+                    <span style="font-size: 16pt; font-family:Verdana;">
+                        Sorry, You are not authorized to visit the Site.<br />
+                        Please contact with the Site Administrator.<br />
+                    </span>
+                </strong>
+            </td>
+        </tr>
+    </table>
+</div>

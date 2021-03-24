@@ -1,0 +1,202 @@
+@model TicketingSystem.Models.SearchAllTicketModel
+    <form method="post">
+        <table width="100%">
+            <tr>
+                <td align="right" colspan="4">
+                    <span id="_lblWelcome">@ViewData["lblWelcome"]</span>
+                </td>
+            </tr>
+            @if (@ViewData["lblMessage"] != null)
+            {
+                <tr>
+                    <td align="center" colspan="4">
+                        <span id="lblMessage" style="color:Red;background-color:LightSteelBlue;font-weight:bold;text-align: center; padding-left:20px; padding-right:20px;">@ViewData["lblMessage"]</span>
+                    </td>
+                </tr>            
+             }
+        </table>
+        <table width="100%">
+            <tr>
+                <td colspan="4" align="left" style="background-color: Black; height: 30px">
+                    <span id="lblPageTitle" style="color:White;font-size:Large;font-weight:bold;">Search Ticket</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    <input type="submit" asp-controller="MyRequest" asp-action="MyRequest" value="My Requests" class="menuButton" />
+                    <input type="submit" asp-controller="SearchAllTicket" asp-action="btnActivationDashboard_Click" value="Activation Dashboard" class="menuButton" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    <fieldset>
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Search Criteria</strong></font></legend>
+                        <table width="80%">
+                            <tr>
+                                <td colspan="4" style="height: 5px" class="leftCell">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; height: 20px;" class="leftCell">
+                                    Request Date From:
+                                </td>
+                                <td style="width: 30%; height: 20px;" class="rightCell">
+                                    <input type="text" id="datepicker" name="txtRequestDateFrom" value="@Model.txtRequestDateFrom">
+                                </td>
+                                <td style="width: 20%; height: 20px;" class="leftCell">
+                                    Request Date To:
+                                </td>
+                                <td style="width: 30%; height: 20px;" class="rightCell">
+                                    <input type="text" id="datepicker1" name="txtRequestDateTo" value="@Model.txtRequestDateTo">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%" class="leftCell">
+                                    Service Name:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    @Html.DropDownListFor(m => m.ddlService, Model.service, "Please select ...", new { style = "width: 240px;" })
+                                </td>
+                                <td style="width: 20%" class="leftCell">
+                                    Product Name:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    @Html.DropDownListFor(m => m.ddlProduct, Model.product, "Please select ...", new { style = "width: 240px;" })                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%" class="leftCell">
+                                    Executor Name:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    @Html.DropDownListFor(m => m.ddlExecutor, Model.executor, "Please select ...", new { style = "width: 240px;" })
+                                </td>
+                                <td style="width: 20%" class="leftCell">
+                                    Ticket Status:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    @Html.DropDownListFor(m => m.ddlTicketStatus, Model.ticketStatus, "Please select ...", new { style = "width: 150px;" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%" class="leftCell">
+                                    Channel Type:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    @Html.DropDownListFor(m => m.ddlChannelType, Model.channel, "Please select ...", new { style = "width: 240px;" })
+                                </td>
+                                <td style="width: 20%" class="leftCell">
+                                    Urgent:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    @Html.DropDownListFor(m => m.ddlUrgent, Model.urgent, "Please select ...", new { style = "width: 150px;" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%" class="leftCell">
+                                    Ticket #:
+                                </td>
+                                <td style="width: 30%" class="rightCell">
+                                    <input type="text" id="txtTicketNo" name="txtTicketNo" style="width:120px;" value="@Model.txtTicketNo">
+                                </td>
+                                <td style="width: 20%" class="leftCell">
+                                    &nbsp;
+                                </td>
+                                <td style="width: 30%" class="leftCell">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" align="center" valign="middle" style="height: 35px">
+                                    <input type="submit" asp-controller="SearchAllTicket" asp-action="AllTicketSearch" value="Search" style="width:100px;" />
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <br />
+                    <fieldset>
+                        <legend><font face="Verdana" size="2"><strong style="padding-bottom: 10px">Search Result</strong></font></legend>
+                        <br />
+                        <div>
+                            @if (Model.listReqMaster != null && Model.listReqMaster.Any())
+                            {
+                <table cellspacing="0" rules="all" border="1" id="gvActivationRequest" style="width:90%;border-collapse:collapse;">
+                    <tr style="background-color:#CCE4F5;font-weight:bold;height:20px;">
+                        <th scope="col">Request Date</th>
+                        <th scope="col">Ticket #</th>
+                        <th scope="col">Service Name</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Urgent</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Requester</th>
+                        <th scope="col">Assigned User</th>
+                    </tr>
+                    @foreach (ActivationReqMasterModel activationReq in Model.listReqMaster)
+                    {
+                        <tr style="color:Black;height:18px;">
+                            <td>
+                                <span id="" style="display:inline-block;width:75px;">@activationReq.ticketCreateDate</span>
+                            </td>
+                            <td style="white-space:nowrap;">
+                                <a id="" href="/ActivationExecution/Execution?reqticketno=@activationReq.ticketNo" style="display:inline-block;width:110px;" target="_blank">@activationReq.ticketNo</a>
+                            </td>
+                            <td>
+                                <span id="" style="display:inline-block;width:120px;">@activationReq.serviceName</span>
+                            </td>
+                            <td>
+                                <span id="" style="display:inline-block;width:120px;">@activationReq.productName</span>
+                            </td>
+                            <td style="white-space:nowrap;">
+                                <span id="" style="display:inline-block;width:50px;">@activationReq.isUrgent</span>
+                            </td>
+                            <td style="white-space:nowrap;">
+                                <span id="" style="display:inline-block;width:80px;">@activationReq.ticketStatus</span>
+                            </td>
+                            <td>
+                                <span id="" style="display:inline-block;width:100px;">@activationReq.ticketCreateUser</span>
+                            </td>
+                            <td>
+                                <span id="" style="display:inline-block;width:100px;">@activationReq.ticketAssignUser</span>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                }
+                        </div>
+                        <br />
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            //Bind City dropdownlist
+            $("#ddlService").change(function () {
+                var ddlService = $("#ddlService").val();
+                var url = '/SearchAllTicket/GetProductList';
+                $.getJSON(url, { ServiceName: ddlService }, function (data) {
+                    var item = "<option value=''>Please select ...</option>";
+                    $("#ddlProduct").empty();
+                    $.each(data, function (i, product) {
+                        item += '<option value="' + product.value + '">' + product.text + '</option>'
+                    });
+                    $("#ddlProduct").html(item);
+                });
+            });
+        </script>
+    </form>
